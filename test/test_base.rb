@@ -81,10 +81,9 @@ class TestBase < MiniTest::Unit::TestCase
   end
 
   def test_define_api_methods_defines_instance_methods
-    bt = BaseTest.new(@client)
-    assert bt.respond_to?(:bar)
-    assert bt.respond_to?(:omg)
-    assert bt.respond_to?(:zomg)
+    BaseTest::METHODS.each do |method|
+      assert BaseTest.method_defined?(:method)
+    end
   end
 
   def test_converts_hash
