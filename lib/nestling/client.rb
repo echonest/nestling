@@ -38,7 +38,7 @@ module Nestling
       hash = JSON.parse(data)
 
       if (code = hash["response"]["status"]["code"].to_i) != 0
-        raise Nestling::ERRNO[code], hash["response"]["status"]["message"]
+        raise ERRNO[code], hash["response"]["status"]["message"]
       end
 
       hash
