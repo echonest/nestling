@@ -73,6 +73,10 @@ class TestBase < MiniTest::Unit::TestCase
     BaseTest.new(@client).omg :foo => 'bar'
   end
 
+  def test_define_api_methods
+    assert Base.respond_to?(:define_api_methods)
+  end
+
   def test_converts_hash
     stub_http_get @hash_response
     hash = BaseTest.new(@client).bar
