@@ -5,6 +5,10 @@ class TestSong < MiniTest::Unit::TestCase
 
   METHODS = Song::METHODS
 
+  def setup
+    @song = Nestling.new('foo').song
+  end
+
   def test_superclass
     assert_equal Base, Song.superclass
   end
@@ -20,16 +24,19 @@ class TestSong < MiniTest::Unit::TestCase
   def test_search
     assert METHODS[:search][:collection]
     assert_equal "songs", METHODS[:search][:key]
+    assert @song.respond_to?(:search)
   end
 
   def test_profile
     assert METHODS[:profile][:collection]
     assert_equal "songs", METHODS[:profile][:key]
+    assert @song.respond_to?(:profile)
   end
 
   def test_identify
     assert METHODS[:identify][:collection]
     assert_equal "songs", METHODS[:identify][:key]
+    assert @song.respond_to?(:identify)
   end
 end
 

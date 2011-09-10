@@ -5,6 +5,10 @@ class TestTrack < MiniTest::Unit::TestCase
 
   METHODS = Track::METHODS
 
+  def setup
+    @track = Nestling.new('foo').track
+  end
+
   def test_superclass
     assert_equal Base, Track.superclass
   end
@@ -20,6 +24,7 @@ class TestTrack < MiniTest::Unit::TestCase
   def test_profile
     refute METHODS[:profile][:collection]
     assert_equal "track", METHODS[:profile][:key]
+    assert @track.respond_to?(:profile)
   end
 end
 

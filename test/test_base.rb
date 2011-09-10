@@ -9,7 +9,7 @@ class BaseTest < Nestling::Base
     :zomg => { :collection => false }
   }
 
-  define_api_methods(METHODS)
+  define_api_methods METHODS
 end
 
 class TestBase < MiniTest::Unit::TestCase

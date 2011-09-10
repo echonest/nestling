@@ -5,6 +5,10 @@ class TestPlaylist < MiniTest::Unit::TestCase
 
   METHODS = Playlist::METHODS
 
+  def setup
+    @playlist = Nestling.new('foo').playlist
+  end
+
   def test_superclass
     assert_equal Base, Playlist.superclass
   end
@@ -20,16 +24,19 @@ class TestPlaylist < MiniTest::Unit::TestCase
   def test_static
     assert METHODS[:static][:collection]
     assert_equal "songs", METHODS[:static][:key]
+    assert @playlist.respond_to?(:static)
   end
 
   def test_dynamic
     assert METHODS[:dynamic][:collection]
     assert_equal "songs", METHODS[:dynamic][:key]
+    assert @playlist.respond_to?(:dynamic)
   end
 
   def test_session_info
     refute METHODS[:session_info][:collection]
     assert_equal "terms", METHODS[:session_info][:key]
+    assert @playlist.respond_to?(:session_info)
   end
 end
 
