@@ -7,13 +7,15 @@ class TestErrors < MiniTest::Unit::TestCase
     @sym_options = {
       :results    => 10,
       :start      => 2,
-      :session_id => 123
+      :session_id => 123,
+      :type       => "mood"
     }
 
     @str_options = {
       "results"    => 10,
       "start"      => 2,
-      "session_id" => 123
+      "session_id" => 123,
+      "type"       => "mood"
     }
 
     @str_options_with_total = {
@@ -51,6 +53,11 @@ class TestErrors < MiniTest::Unit::TestCase
   def test_collection_assigns_session_id
     assert_equal 123, Collection.new(@str_options).session_id
     assert_equal 123, Collection.new(@sym_options).session_id
+  end
+
+  def test_collection_assigns_type
+    assert_equal "mood", Collection.new(@str_options).type
+    assert_equal "mood", Collection.new(@sym_options).type
   end
 end
 
