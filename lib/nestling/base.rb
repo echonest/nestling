@@ -5,36 +5,51 @@ module Nestling
     METHOD_PREFIX = ""
     METHODS       = {}
 
+    class << self
+      def define_api_methods(methods)
+        methods.each do |key, definition|
+          if definition[:collection]
+            define_api_method_returning_collection(key, definition)
+          else
+            define_api_method(key, definition)
+          end
+        end
+      end
+
+      private
+
+      def define_api_method_returning_collection(key, definition)
+        define_method key do |*args|
+          resp = get_request(key, args[0] || {})
+          hashes = resp[definition[:key] || key.to_s]
+          Collection.new(resp["total"], resp["start"],
+                         resp["session_id"]).tap do |col|
+            hashes.each { |hash| col << convert(hash) }
+          end
+        end
+      end
+
+      def define_api_method(key, definition)
+        define_method key do |*args|
+          resp = get_request(key, args[0] || {})
+          convert(resp[definition[:key] || key.to_s])
+        end
+      end
+    end
+
     def initialize(client)
       @client = client
     end
 
-    def method_missing(meth, *args, &block)
-      unless method = self.class::METHODS[meth]
-        return super(meth, *args, &block)
-      end
-
-      opts  = args[0] || {}
-      key   = meth.to_s
-      query = self.class::METHOD_PREFIX + key
-
-      resp    = get(query, options(opts))["response"]
-      payload = resp[method[:key] || key]
-
-      if method[:collection]
-        Collection.new(resp["total"], resp["start"],
-                       resp["session_id"]).tap do |c|
-          payload.each { |h| c << convert(h) }
-        end
-      else
-        convert(payload)
-      end
-    end
-
     private
 
+    def get_request(key, opts)
+      query = self.class::METHOD_PREFIX + key.to_s
+      get(query, options(opts))["response"]
+    end
+
     def convert(hash)
-      hash = Hash.new(hash)
+      hash = Nestling::Hash.new(hash)
 
       hash.each do |key, value|
         if value.kind_of?(String) &&
