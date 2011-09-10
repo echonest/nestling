@@ -23,4 +23,3 @@ class TestTrack < MiniTest::Unit::TestCase
   end
 end
 
-
