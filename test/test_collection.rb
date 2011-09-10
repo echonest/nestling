@@ -18,7 +18,7 @@ class TestErrors < MiniTest::Unit::TestCase
     assert_equal 10, Collection.new(10).results
   end
 
-  def test_collection_assigns_results
+  def test_collection_assigns_start
     assert_equal 2, Collection.new(10, 2).start
   end
 
