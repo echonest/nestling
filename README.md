@@ -75,8 +75,13 @@ Additional information passed by EchoNest for collections (such as `results`,
 too:
 
     blogs.each do |blog|
-      # Some smart code
+      puts blog.name
     end
+
+Nestling will also convert timestamps to Ruby DateTime objects for you:
+
+    nestling.artist("Radiohead").blogs[0].date_found
+    # => #<DateTime: 2011-09-09T20:49:16+00:00 (53045590339/21600,0/1,2299161)>
 
 ## WHAT'S MISSING AT THE MOMENT?
 
