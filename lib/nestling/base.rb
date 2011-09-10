@@ -22,8 +22,7 @@ module Nestling
         define_method key do |*args|
           resp = get_request(key, args[0] || {})
           hashes = resp[definition[:key] || key.to_s]
-          Collection.new(resp["total"], resp["start"],
-                         resp["session_id"]).tap do |col|
+          Collection.new(resp).tap do |col|
             hashes.each { |hash| col << convert(hash) }
           end
         end
