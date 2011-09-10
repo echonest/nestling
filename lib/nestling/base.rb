@@ -20,7 +20,7 @@ module Nestling
 
       def define_api_method_returning_collection(key, definition)
         define_method key do |*args|
-          resp = get_request(key, args[0] || {})
+          resp = get_request(key, args[0])
           hashes = convert_hashes(resp[definition[:key] || key.to_s])
           Collection.new(resp).push(hashes).flatten!
         end
@@ -28,7 +28,7 @@ module Nestling
 
       def define_api_method(key, definition)
         define_method key do |*args|
-          resp = get_request(key, args[0] || {})
+          resp = get_request(key, args[0])
           convert_hash(resp[definition[:key] || key.to_s])
         end
       end
@@ -41,6 +41,7 @@ module Nestling
     private
 
     def get_request(key, opts)
+      opts ||= {}
       query = self.class::METHOD_PREFIX + key.to_s
       get(query, options(opts))["response"]
     end
