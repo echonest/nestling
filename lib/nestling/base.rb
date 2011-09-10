@@ -29,7 +29,7 @@ module Nestling
       def define_api_method(key, definition)
         define_method key do |*args|
           resp = get_request(key, args[0] || {})
-          convert(resp[definition[:key] || key.to_s])
+          convert_hash(resp[definition[:key] || key.to_s])
         end
       end
     end
@@ -46,10 +46,10 @@ module Nestling
     end
 
     def convert_hashes(hashes)
-      hashes.map { |hash| convert(hash) }
+      hashes.map { |hash| convert_hash(hash) }
     end
 
-    def convert(hash)
+    def convert_hash(hash)
       hash = Nestling::Hash.new(hash)
 
       hash.each do |key, value|
@@ -57,7 +57,7 @@ module Nestling
           value.match(/\d{4}(-\d\d){2}T\d{2}(:\d\d){2}/)
           hash[key] = DateTime.parse(value)
         elsif value.kind_of?(::Hash)
-          hash[key] = convert(value)
+          hash[key] = convert_hash(value)
         end
       end
     end
