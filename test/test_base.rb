@@ -2,11 +2,14 @@ require File.join(File.dirname(__FILE__), 'helper')
 
 class BaseTest < Nestling::Base
   METHOD_PREFIX = 'test/'
+
   METHODS = {
     :omg =>  { :collection => true,  :key => "foo" },
     :bar =>  { :collection => false, :key => "baz" },
     :zomg => { :collection => false }
   }
+
+  define_api_methods(METHODS)
 end
 
 class TestBase < MiniTest::Unit::TestCase
@@ -75,6 +78,13 @@ class TestBase < MiniTest::Unit::TestCase
 
   def test_define_api_methods
     assert Base.respond_to?(:define_api_methods)
+  end
+
+  def test_define_api_methods_defines_instance_methods
+    bt = BaseTest.new(@client)
+    assert bt.respond_to?(:bar)
+    assert bt.respond_to?(:omg)
+    assert bt.respond_to?(:zomg)
   end
 
   def test_converts_hash
