@@ -5,6 +5,8 @@ module Nestling
     METHODS = {
       :profile  => { :collection => false, :key => "track" },
     }
+
+    define_api_methods METHODS
   end
 end
 

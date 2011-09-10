@@ -27,6 +27,8 @@ module Nestling
       :video       => { :collection => true }
     }
 
+    define_api_methods METHODS
+
     def initialize(name, client)
       name.kind_of?(::Hash) ? @id = name[:id] : @name = name
       super(client)

@@ -7,6 +7,8 @@ module Nestling
       :profile  => { :collection => true, :key => "songs" },
       :identify => { :collection => true, :key => "songs" }
     }
+
+    define_api_methods METHODS
   end
 end
 

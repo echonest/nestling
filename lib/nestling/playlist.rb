@@ -7,6 +7,8 @@ module Nestling
       :dynamic      => { :collection => true,  :key => "songs" },
       :session_info => { :collection => false, :key => "terms" }
     }
+
+    define_api_methods METHODS
   end
 end
 
