@@ -51,7 +51,7 @@ module Nestling
     end
 
     def convert_hash(hash)
-      hash = Nestling::Hash.new(hash)
+      hash = Nestling::Hash.new(hash).symbolize_keys!
 
       hash.each do |key, value|
         if value.kind_of?(String) &&

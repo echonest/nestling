@@ -1,7 +1,7 @@
 module Nestling
   class Hash < ::Hash
     def initialize(hash = nil, *args)
-      self.merge!(hash).symbolize_keys! if hash
+      self.merge!(hash) if hash
       super *args
     end
 

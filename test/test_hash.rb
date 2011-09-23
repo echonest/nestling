@@ -23,7 +23,7 @@ class TestHash < MiniTest::Unit::TestCase
   def test_initialize
     h = Nestling::Hash.new({ :foo => "bar", "bar" => :baz})
     assert_equal "bar", h[:foo]
-    assert_equal :baz, h[:bar]
+    assert_equal :baz, h["bar"]
   end
 
   def test_symbolize_keys
