@@ -17,7 +17,6 @@ class TestHash < MiniTest::Unit::TestCase
     h = Nestling::Hash.new
     assert_respond_to h, :symbolize_keys
     assert_respond_to h, :symbolize_keys!
-    refute_respond_to Nestling::Hash.new, :length
   end
 
   def test_initialize

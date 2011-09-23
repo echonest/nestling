@@ -9,8 +9,6 @@ module Nestling
       (val = self[meth]) ? val : super(meth, *args, &block)
     end
 
-    undef length # Property used by EchoNest API
-
     # Adapted from ActiveSupport (part of Ruby on Rails)
     # Released under the MIT license
     def symbolize_keys

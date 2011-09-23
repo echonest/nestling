@@ -5,7 +5,6 @@ module Nestling
     METHOD_PREFIX = "artist/"
 
     METHODS = {
-      :audio       => { :collection => true },
       :biographies => { :collection => true },
       :blogs       => { :collection => true },
       :familiarity => { :collection => false, :key => "artist" },

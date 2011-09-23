@@ -16,7 +16,7 @@ class TestArtist < MiniTest::Unit::TestCase
         "start": 11,
         "total": 1393,
         "session_id": 123,
-        "audio": [{
+        "blogs": [{
           "title": "foo",
           "date": "2011-08-16T01:15:01"
         }]
@@ -34,7 +34,7 @@ class TestArtist < MiniTest::Unit::TestCase
   end
 
   def test_number_of_methods
-    assert_equal 20, METHODS.length
+    assert_equal 19, METHODS.length
   end
 
   def test_artist_with_id
@@ -50,19 +50,13 @@ class TestArtist < MiniTest::Unit::TestCase
   end
 
   def test_passes_name
-    expect_request @collection_response, 'artist/audio', { :name => 'bar' }
-    Client.new('foo').artist('bar').audio
+    expect_request @collection_response, 'artist/blogs', { :name => 'bar' }
+    Client.new('foo').artist('bar').blogs
   end
 
   def test_passes_id
-    expect_request @collection_response, 'artist/audio', { :id => 'baz' }
-    Client.new('foo').artist(:id => 'baz').audio
-  end
-
-  def test_audio
-    assert METHODS[:audio][:collection]
-    assert_nil METHODS[:audio][:key]
-    assert @artist.respond_to?(:audio)
+    expect_request @collection_response, 'artist/blogs', { :id => 'baz' }
+    Client.new('foo').artist(:id => 'baz').blogs
   end
 
   def test_biographies
